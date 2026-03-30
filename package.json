@@ -1,0 +1,28 @@
+{
+  "name": "claude-discord-status",
+  "version": "0.1.0",
+  "description": "Discord Rich Presence plugin for Claude Code, Claude Desktop, and Cowork",
+  "author": {
+    "name": "quantumdev"
+  },
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xhayper/discord-rpc": "^1.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

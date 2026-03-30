@@ -1,0 +1,15 @@
+{
+  "name": "claude-discord-status",
+  "version": "0.1.0",
+  "description": "Show your Claude Code, Claude Desktop, or Cowork activity as Discord Rich Presence",
+  "author": {
+    "name": "quantumdev",
+    "url": "https://github.com/quantumdev"
+  },
+  "keywords": [
+    "discord",
+    "rich-presence",
+    "status",
+    "activity"
+  ]
+}
