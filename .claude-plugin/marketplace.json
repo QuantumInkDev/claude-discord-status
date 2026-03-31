@@ -1,0 +1,27 @@
+{
+  "name": "claude-discord-status-marketplace",
+  "version": "1.0.0",
+  "description": "Local marketplace for claude-discord-status plugin",
+  "owner": {
+    "name": "Justin Garcia",
+    "email": "dev@quantumink.dev"
+  },
+  "plugins": [
+    {
+      "name": "claude-discord-status",
+      "description": "Show your Claude Code, Claude Desktop, or Cowork activity as Discord Rich Presence",
+      "version": "0.1.0",
+      "source": {
+        "source": "github",
+        "repo": "QuantumInkDev/claude-discord-status"
+      },
+      "author": {
+        "name": "Justin Garcia",
+        "email": "dev@quantumink.dev"
+      },
+      "category": "productivity",
+      "keywords": ["discord", "rich-presence", "status", "activity"],
+      "homepage": "https://github.com/QuantumInkDev/claude-discord-status"
+    }
+  ]
+}
