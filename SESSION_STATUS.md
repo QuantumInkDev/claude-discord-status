@@ -1,7 +1,7 @@
 # Session Status
 
 **Last Updated**: 2026-03-31
-**Current Phase**: Plugin installed, ready for live hook testing
+**Current Phase**: Hook fix applied, awaiting restart verification
 
 ## What's Done
 - Full daemon + hooks architecture implemented
@@ -13,11 +13,13 @@
 - Plugin installed and enabled in Claude Code (`claude-discord-status@claude-discord-status-marketplace`)
 - Plugin built in cache at `~/.claude/plugins/cache/claude-discord-status-marketplace/claude-discord-status/0.1.0/`
 - GitHub CLI (`gh`) installed and authenticated as QuantumInkDev
+- **Fixed hooks.json** — added missing top-level `"hooks"` wrapper key (Claude Code requires `{ "hooks": { ... } }`, not bare event types at root)
 
 ## CONTINUE HERE
 - Restart Claude Code and verify hooks fire automatically (SessionStart → daemon spawn → Discord presence)
+- Check `/tmp/claude-discord-status/hook-debug.log` for evidence hooks fired
 - Test full hook cycle: session start, tool use updates, prompt submit, session end
-- If hooks work: commit marketplace.json, push, and move on to GitHub Actions CI
+- If hooks work: commit fix, push, and move on to GitHub Actions CI
 - After CI: polish for official plugin marketplace submission
 
 ## Known Issues

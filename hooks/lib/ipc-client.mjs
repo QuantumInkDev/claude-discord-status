@@ -4,14 +4,15 @@
  */
 
 import { connect } from 'node:net';
-import { platform, tmpdir } from 'node:os';
+import { homedir, platform } from 'node:os';
 import { join } from 'node:path';
 
 const SOCKET_FILENAME = 'claude-discord-status.sock';
 const CONNECT_TIMEOUT_MS = 2000;
+const FALLBACK_DATA_DIR = join(homedir(), '.claude', 'plugins', 'data', 'claude-discord-status');
 
 function getSocketPath() {
-  const dataDir = process.env.CLAUDE_PLUGIN_DATA ?? join(tmpdir(), 'claude-discord-status');
+  const dataDir = process.env.CLAUDE_PLUGIN_DATA ?? FALLBACK_DATA_DIR;
 
   if (platform() === 'win32') {
     return '\\\\.\\pipe\\claude-discord-status';

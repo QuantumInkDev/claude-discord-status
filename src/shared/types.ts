@@ -15,6 +15,8 @@ export interface HookMessage {
     action?: string;
     actionCategory?: ActionCategory;
     details?: string;
+    /** PID of the Claude Code process that owns this session */
+    ownerPid?: number;
   };
 }
 
@@ -27,6 +29,8 @@ export interface SessionState {
   actionCategory: ActionCategory;
   startedAt: number;
   lastUpdatedAt: number;
+  /** PID of the Claude Code process — used to detect dead sessions */
+  ownerPid?: number;
 }
 
 /** User-facing plugin configuration */

@@ -115,10 +115,12 @@ async function main(): Promise<void> {
 
   await discord.connect();
 
-  // Prune idle sessions every minute
+  // Prune dead/idle sessions every 10 seconds
+  // Dead PID check catches sessions where Claude Code exited without firing SessionEnd
   pruneInterval = setInterval(() => {
+    stateManager.pruneDeadSessions();
     stateManager.pruneIdleSessions();
-  }, 60_000);
+  }, 10_000);
 
   // Start idle timer
   resetIdleTimer();

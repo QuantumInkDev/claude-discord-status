@@ -74,6 +74,32 @@ export class StateManager {
     this.scheduleUpdate();
   }
 
+  /** Remove sessions whose owner process is no longer alive */
+  pruneDeadSessions(): void {
+    let changed = false;
+
+    for (const [id, session] of this.sessions) {
+      if (session.ownerPid != null && !StateManager.isProcessAlive(session.ownerPid)) {
+        this.sessions.delete(id);
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      this.scheduleUpdate();
+    }
+  }
+
+  /** Check if a PID is still running (signal 0 doesn't kill, just checks) */
+  private static isProcessAlive(pid: number): boolean {
+    try {
+      process.kill(pid, 0);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   /** Update the config (e.g., after user changes settings) */
   updateConfig(config: PluginConfig): void {
     this.config = config;
@@ -97,6 +123,7 @@ export class StateManager {
       actionCategory: message.payload.actionCategory ?? 'idle',
       startedAt: message.timestamp,
       lastUpdatedAt: message.timestamp,
+      ownerPid: message.payload.ownerPid,
     };
 
     this.sessions.set(message.sessionId, session);

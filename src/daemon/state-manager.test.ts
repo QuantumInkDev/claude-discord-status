@@ -208,4 +208,80 @@ describe('StateManager', () => {
     stateManager.handleMessage(makeMessage({ sessionId: 'b', type: 'register' }));
     expect(stateManager.getSessionCount()).toBe(2);
   });
+
+  it('stores ownerPid from register message', () => {
+    stateManager.handleMessage(makeMessage({
+      payload: {
+        appType: 'code',
+        project: 'test',
+        action: 'Starting',
+        actionCategory: 'idle',
+        ownerPid: 12345,
+      },
+    }));
+
+    expect(stateManager.getSessionCount()).toBe(1);
+  });
+
+  it('prunes sessions whose owner PID is dead', () => {
+    // Register with a PID that definitely doesn't exist
+    stateManager.handleMessage(makeMessage({
+      sessionId: 'dead-session',
+      payload: {
+        appType: 'code',
+        project: 'test',
+        action: 'Starting',
+        actionCategory: 'idle',
+        ownerPid: 999999999,
+      },
+    }));
+
+    expect(stateManager.getSessionCount()).toBe(1);
+
+    // Advance past rate limit so the clear activity can be emitted
+    vi.advanceTimersByTime(16_000);
+
+    stateManager.pruneDeadSessions();
+
+    expect(stateManager.getSessionCount()).toBe(0);
+    // Need to flush the rate-limited update
+    vi.advanceTimersByTime(16_000);
+    expect(lastActivity).toBeNull();
+  });
+
+  it('keeps sessions whose owner PID is alive', () => {
+    // Use our own PID — guaranteed alive
+    stateManager.handleMessage(makeMessage({
+      sessionId: 'alive-session',
+      payload: {
+        appType: 'code',
+        project: 'test',
+        action: 'Starting',
+        actionCategory: 'idle',
+        ownerPid: process.pid,
+      },
+    }));
+
+    vi.advanceTimersByTime(16_000);
+    stateManager.pruneDeadSessions();
+
+    expect(stateManager.getSessionCount()).toBe(1);
+  });
+
+  it('keeps sessions without ownerPid (falls back to idle timeout)', () => {
+    stateManager.handleMessage(makeMessage({
+      sessionId: 'no-pid-session',
+      payload: {
+        appType: 'code',
+        project: 'test',
+        action: 'Starting',
+        actionCategory: 'idle',
+      },
+    }));
+
+    stateManager.pruneDeadSessions();
+
+    // Should NOT be pruned — no PID to check
+    expect(stateManager.getSessionCount()).toBe(1);
+  });
 });

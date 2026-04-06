@@ -1,8 +1,15 @@
-import { platform, tmpdir } from 'node:os';
+import { homedir, platform } from 'node:os';
 import { join } from 'node:path';
 
 /** Default Discord Application ID for the official claude-discord-status plugin */
 export const DEFAULT_DISCORD_APP_ID = '1488323365642047630';
+
+/**
+ * Canonical data directory. Uses CLAUDE_PLUGIN_DATA if set by the plugin system,
+ * otherwise falls back to ~/.claude/plugins/data/claude-discord-status which is
+ * stable across all invocation methods (plugin hooks, settings hooks, manual runs).
+ */
+const FALLBACK_DATA_DIR = join(homedir(), '.claude', 'plugins', 'data', 'claude-discord-status');
 
 /** Rate limit: Discord allows 1 presence update per 15 seconds */
 export const DISCORD_RATE_LIMIT_MS = 15_000;
@@ -22,9 +29,9 @@ export const PID_FILENAME = 'claude-discord-status.pid';
 /** Config filename */
 export const CONFIG_FILENAME = 'config.json';
 
-/** Get the plugin data directory (set by Claude Code, fallback to tmp) */
+/** Get the plugin data directory (set by Claude Code, fallback to ~/.claude/plugins/data/) */
 export function getPluginDataDir(): string {
-  return process.env['CLAUDE_PLUGIN_DATA'] ?? join(tmpdir(), 'claude-discord-status');
+  return process.env['CLAUDE_PLUGIN_DATA'] ?? FALLBACK_DATA_DIR;
 }
 
 /** Get the socket path based on platform */
