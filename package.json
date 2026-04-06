@@ -3,10 +3,22 @@
   "version": "0.1.0",
   "description": "Discord Rich Presence plugin for Claude Code, Claude Desktop, and Cowork",
   "author": {
-    "name": "quantumdev"
+    "name": "Justin Garcia",
+    "url": "https://github.com/QuantumInkDev"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/QuantumInkDev/claude-discord-status.git"
+  },
   "type": "module",
+  "files": [
+    "dist",
+    "hooks",
+    ".claude-plugin",
+    "LICENSE",
+    "README.md"
+  ],
   "engines": {
     "node": ">=20"
   },

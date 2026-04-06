@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "description": "Show your Claude Code, Claude Desktop, or Cowork activity as Discord Rich Presence",
   "author": {
-    "name": "quantumdev",
-    "url": "https://github.com/quantumdev"
+    "name": "Justin Garcia",
+    "url": "https://github.com/QuantumInkDev"
   },
+  "repository": "https://github.com/QuantumInkDev/claude-discord-status",
+  "license": "MIT",
   "keywords": [
     "discord",
     "rich-presence",
