@@ -1,30 +1,32 @@
 # Session Status
 
-**Last Updated**: 2026-03-31
-**Current Phase**: Hook fix applied, awaiting restart verification
+**Last Updated**: 2026-04-05
+**Current Phase**: CI + polish complete, ready for marketplace submission
 
 ## What's Done
 - Full daemon + hooks architecture implemented
-- Discord RPC connection working (tested live — both states visible)
-- Discord assets uploaded and displaying correctly
-- 33 unit tests passing, clean type-check, clean build
+- Discord RPC connection working (tested live — all icon combos verified)
+- Discord assets uploaded and displaying correctly (4 large + 5 small icons)
+- 37 unit tests passing, clean type-check, clean build
 - Pushed to GitHub: https://github.com/QuantumInkDev/claude-discord-status
 - Local marketplace created and registered
-- Plugin installed and enabled in Claude Code (`claude-discord-status@claude-discord-status-marketplace`)
-- Plugin built in cache at `~/.claude/plugins/cache/claude-discord-status-marketplace/claude-discord-status/0.1.0/`
-- GitHub CLI (`gh`) installed and authenticated as QuantumInkDev
-- **Fixed hooks.json** — added missing top-level `"hooks"` wrapper key (Claude Code requires `{ "hooks": { ... } }`, not bare event types at root)
+- Plugin installed and enabled in Claude Code
+- Hooks firing automatically (SessionStart, PostToolUse, UserPromptSubmit, SessionEnd, CwdChanged)
+- Fixed hooks.json top-level "hooks" wrapper key
+- GitHub Actions CI pipeline (Node 20 + 22, type-check, build, test)
+- Postinstall auto-build (npm install triggers tsc)
+- README updated with CI badge, full asset table, corrected install instructions
 
 ## CONTINUE HERE
-- Restart Claude Code and verify hooks fire automatically (SessionStart → daemon spawn → Discord presence)
-- Check `/tmp/claude-discord-status/hook-debug.log` for evidence hooks fired
-- Test full hook cycle: session start, tool use updates, prompt submit, session end
-- If hooks work: commit fix, push, and move on to GitHub Actions CI
-- After CI: polish for official plugin marketplace submission
+- Push latest changes and verify CI passes on GitHub
+- Polish for official plugin marketplace submission
+- Consider: add LICENSE file if missing
+- Consider: add .npmignore or "files" field in package.json for cleaner installs
 
 ## Known Issues
-- Plugin install requires `npm install && npm run build` in the cache dir after install (no postinstall hook yet)
+- Plugin install requires clone + npm install in cache dir (no remote registry yet)
 - Git SSH not configured — using HTTPS via `git config --global url."https://github.com/".insteadOf "git@github.com:"`
+- CLAUDE_PLUGIN_ROOT and CLAUDE_PLUGIN_DATA not set when hooks fire (using fallback paths)
 
 ## Architecture Notes
 - Daemon auto-spawns on SessionStart, self-terminates after 5min idle

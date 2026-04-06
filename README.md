@@ -1,5 +1,7 @@
 # claude-discord-status
 
+[![CI](https://github.com/QuantumInkDev/claude-discord-status/actions/workflows/ci.yml/badge.svg)](https://github.com/QuantumInkDev/claude-discord-status/actions/workflows/ci.yml)
+
 Show your Claude Code, Claude Desktop, or Cowork activity as Discord Rich Presence.
 
 Like the VS Code Discord extension, but for Claude.
@@ -22,11 +24,10 @@ Like the VS Code Discord extension, but for Claude.
 ### 2. Install the plugin
 
 ```bash
-# Clone and build
-git clone https://github.com/quantumdev/claude-discord-status.git
+# Clone and install (auto-builds via postinstall)
+git clone https://github.com/QuantumInkDev/claude-discord-status.git
 cd claude-discord-status
 npm install
-npm run build
 
 # Install in Claude Code
 claude plugin install ./claude-discord-status
@@ -82,15 +83,24 @@ Claude Code hooks  ──►  Background daemon  ──►  Discord Rich Presenc
 
 For custom icons, upload images in your Discord Application under Rich Presence > Art Assets:
 
+**Large images** (app type — displayed as main icon):
+
 | Asset Key | Description | Size |
 |-----------|-------------|------|
 | `claude_code` | Claude Code logo | 1024x1024 |
 | `claude_desktop` | Claude Desktop logo | 1024x1024 |
 | `claude_cowork` | Claude Cowork logo | 1024x1024 |
-| `action_edit` | Edit action icon | 1024x1024 |
-| `action_run` | Run action icon | 1024x1024 |
-| `action_explore` | Explore action icon | 1024x1024 |
-| `action_chat` | Chat action icon | 1024x1024 |
+| `claude_chat` | Claude Chat logo | 1024x1024 |
+
+**Small images** (action — displayed as overlay badge):
+
+| Asset Key | Description | Size |
+|-----------|-------------|------|
+| `action_edit` | Editing files | 1024x1024 |
+| `action_run` | Running commands | 1024x1024 |
+| `action_explore` | Exploring codebase | 1024x1024 |
+| `action_chat` | Chatting | 1024x1024 |
+| `action_idle` | Idle | 1024x1024 |
 
 ## Requirements
 
@@ -111,4 +121,4 @@ MIT - see [LICENSE](LICENSE)
 
 ## Credits
 
-Created by [quantumdev](https://github.com/quantumdev)
+Created by [QuantumInkDev](https://github.com/QuantumInkDev)
