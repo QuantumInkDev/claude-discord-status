@@ -1,7 +1,5 @@
 {
   "name": "claude-discord-status-marketplace",
-  "version": "1.0.0",
-  "description": "Local marketplace for claude-discord-status plugin",
   "owner": {
     "name": "Justin Garcia",
     "email": "dev@quantumink.dev"
